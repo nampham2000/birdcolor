@@ -1,4 +1,4 @@
-import {_decorator,CCInteger,Collider2D,color,Color,Component,Contact2DType,director,Input,input,instantiate,IPhysics2DContact,Node,Prefab,RigidBody2D,Sprite,UITransform,Vec2,Vec3,view} from "cc";
+import {_decorator,CCInteger,Collider2D,color,Color,Component,Contact2DType,Animation,director,Input,input,instantiate,IPhysics2DContact,Node,Prefab,RigidBody2D,Sprite,UITransform,Vec2,Vec3,view} from "cc";
 import { GameModel } from "./GameModel";
 import { GameView } from "./GameView";
 import { Constant } from "./Data/Constant";
@@ -152,6 +152,9 @@ export class GameController extends Component {
     private checkGameOver():void{
         this.gameView.GameOver.active=true;
         this.Bird.active=false;
+        this.scheduleOnce(()=>{
+            director.loadScene("Main");
+        },2)
     }
 
     private saveBestScore(): void {
@@ -174,15 +177,15 @@ export class GameController extends Component {
     private onMuteBtnClick(): void {
         this.audioController.settingAudio(0);
         localStorage.setItem('SoundFlappyColor', '0');
-        this.gameView.MuteBtn.active = false;
-        this.gameView.UnMuteBtn.active = true;
+        this.gameView.MuteBtn.active = true;
+        this.gameView.UnMuteBtn.active = false;
     }
 
     private onUnMuteBtnClick(): void {
         this.audioController.settingAudio(1);
         localStorage.setItem('SoundFlappyColor', '1');
-        this.gameView.MuteBtn.active = true;
-        this.gameView.UnMuteBtn.active = false;
+        this.gameView.MuteBtn.active = false;
+        this.gameView.UnMuteBtn.active = true;
     }
 
     private replay():void
