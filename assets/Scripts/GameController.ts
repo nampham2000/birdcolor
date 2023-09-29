@@ -32,6 +32,8 @@ export class GameController extends Component {
     private checkPass:boolean=false;
     private Score:number=0;
     private highScoreFromLocalStorage:number;
+    private speedInscrease:number=0;
+    private checkInscrease:boolean=false;
     protected start():void {
         this.randomizeBirdProperties();
         this.contactBird();
@@ -62,8 +64,15 @@ export class GameController extends Component {
         if (rigidbody) {
             rigidbody.linearVelocity = new Vec2(0, 15);
         }
-       
-      
+        if(this.Score%5===0&&this.Score!==0&&!this.checkInscrease)
+        {
+            this.speedInscrease=this.speedInscrease+100;
+            this.checkInscrease=true;
+        }
+        if(this.Score%5!==0)
+        {
+            this.checkInscrease=false;
+        }
     }
 
     protected contactBird(): void {
@@ -115,7 +124,7 @@ export class GameController extends Component {
     }
 
     private wallMove(dt: number): void {
-        this.wallSpeed = -350;
+        this.wallSpeed=-350-this.speedInscrease;
         this.Wall.translate(new Vec3(this.wallSpeed * dt, 0, 0));
         this.Wall.children.forEach(child => {
             const collider = child.getComponent(Collider2D);
@@ -152,6 +161,7 @@ export class GameController extends Component {
     private checkGameOver():void{
         this.gameView.GameOver.active=true;
         this.Bird.active=false;
+        input.off(Input.EventType.TOUCH_START);
         this.scheduleOnce(()=>{
             director.loadScene("Main");
         },2)
