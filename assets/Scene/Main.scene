@@ -186,7 +186,7 @@
     "_priority": 0,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 665.2452025586355,
+    "_orthoHeight": 752.5761772853186,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -644,9 +644,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
+      "r": 218,
       "g": 255,
-      "b": 255,
+      "b": 225,
       "a": 255
     },
     "_spriteFrame": {
